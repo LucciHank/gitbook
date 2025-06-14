@@ -14,7 +14,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
   const pathname = usePathname();
 
   const isActive = (path: string) => {
-    return pathname === path;
+    if (!pathname) return false;
+    return pathname === path || pathname.startsWith(path + '/');
   };
 
   const handleBackgroundClick = (e: React.MouseEvent) => {
@@ -28,9 +29,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
     <div className={`${styles.mobileMenu} ${isOpen ? styles.open : ''}`} onClick={handleBackgroundClick}>
       <div className={styles.mobileMenuContent}>
         <div className={styles.mobileMenuHeader}>
-          <div className={styles.logoPlaceholder}>
-            <span>TomOi.vn</span>
-          </div>
           <button className={styles.mobileMenuClose} onClick={onClose}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -71,6 +69,9 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               </li>
               <li className={isActive('/gioi-thieu/dieu-khoan-dich-vu') ? styles.active : ''}>
                 <Link href="/gioi-thieu/dieu-khoan-dich-vu" onClick={onClose}>Điều khoản dịch vụ</Link>
+              </li>
+              <li className={isActive('/gioi-thieu/chinh-sach-bao-mat') ? styles.active : ''}>
+                <Link href="/gioi-thieu/chinh-sach-bao-mat" onClick={onClose}>Chính sách bảo mật</Link>
               </li>
             </ul>
           </div>

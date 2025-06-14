@@ -75,8 +75,8 @@ export default function QuanLyTaiKhoanPage() {
 
   // Cấu hình điều hướng
   const prevPage = {
-    title: "Điều khoản dịch vụ",
-    path: "/gioi-thieu/dieu-khoan-dich-vu"
+    title: "Tổng quan website",
+    path: "/gioi-thieu/tong-quan-website"
   };
   
   const nextPage = {

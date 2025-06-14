@@ -9,7 +9,8 @@ const Sidebar = () => {
   const pathname = usePathname();
 
   const isActive = (path: string) => {
-    return pathname === path;
+    if (!pathname) return false;
+    return pathname === path || pathname.startsWith(path + '/');
   };
 
   return (

@@ -1,13 +1,34 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
+import Head from 'next/head';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from '../../docs/styles.module.css';
 import SearchModal from '../../components/SearchModal';
 import NavigationButtons from '../../components/NavigationButtons';
 import MobileMenu from '../../components/MobileMenu';
 import Sidebar from '../../components/Sidebar';
+
+// Lazy load components
+const LazyImage = (props: any) => (
+  <Suspense fallback={<div className={styles.imagePlaceholder}></div>}>
+    <Image {...props} loading="lazy" />
+  </Suspense>
+);
+
+export const metadata = {
+  title: 'Hướng dẫn nạp tiền tại TomOi.vn - Chi tiết các phương thức nạp tiền',
+  description: 'Hướng dẫn chi tiết cách nạp tiền vào tài khoản TomOi.vn bằng chuyển khoản ngân hàng OCB và thẻ cào Viettel. Thực hiện nhanh chóng, an toàn và dễ dàng.',
+  keywords: 'nạp tiền, TomOi.vn, chuyển khoản ngân hàng, thẻ cào Viettel, hướng dẫn nạp tiền, tài khoản TomOi',
+  openGraph: {
+    title: 'Hướng dẫn nạp tiền tại TomOi.vn - Chi tiết các phương thức nạp tiền',
+    description: 'Hướng dẫn chi tiết cách nạp tiền vào tài khoản TomOi.vn bằng chuyển khoản ngân hàng OCB và thẻ cào Viettel.',
+    url: 'https://tomoi.vn/huong-dan-mua-hang/huong-dan-nap-tien',
+    type: 'article',
+  }
+};
 
 export default function HuongDanNapTienPage() {
   const router = useRouter();
@@ -15,6 +36,7 @@ export default function HuongDanNapTienPage() {
   const [activeSection, setActiveSection] = useState<string>("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchModalOpen, setSearchModalOpen] = useState(false);
+  const [copySuccess, setCopySuccess] = useState<string | null>(null);
   
   // Tạo ngày hiện tại theo định dạng DD/MM/YYYY
   const currentDate = new Date();
@@ -22,6 +44,18 @@ export default function HuongDanNapTienPage() {
   const month = String(currentDate.getMonth() + 1).padStart(2, '0');
   const year = currentDate.getFullYear();
   const lastUpdated = `${day}/${month}/${year}`;
+
+  // Hàm sao chép văn bản vào clipboard
+  const copyToClipboard = (text: string, type: string) => {
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        setCopySuccess(type);
+        setTimeout(() => setCopySuccess(null), 2000);
+      })
+      .catch(err => {
+        console.error('Không thể sao chép văn bản: ', err);
+      });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -76,16 +110,27 @@ export default function HuongDanNapTienPage() {
   // Cấu hình điều hướng
   const prevPage = {
     title: "Quản lý tài khoản",
-    path: "/huong-dan-mua-hang/quan-ly-tai-khoan"
+    path: "/huong-dan-mua-hang/quan-ly-tai-khoan",
+    url: "/huong-dan-mua-hang/quan-ly-tai-khoan"
   };
   
   const nextPage = {
     title: "Hướng dẫn thanh toán",
-    path: "/huong-dan-mua-hang/huong-dan-thanh-toan"
+    path: "/huong-dan-mua-hang/huong-dan-thanh-toan",
+    url: "/huong-dan-mua-hang/huong-dan-thanh-toan"
   };
 
   return (
     <div className={styles['docs-container']}>
+      <Head>
+        <title>{metadata.title}</title>
+        <meta name="description" content={metadata.description} />
+        <meta name="keywords" content={metadata.keywords} />
+        <meta property="og:title" content={metadata.openGraph.title} />
+        <meta property="og:description" content={metadata.openGraph.description} />
+        <meta property="og:url" content={metadata.openGraph.url} />
+        <meta property="og:type" content={metadata.openGraph.type} />
+      </Head>
       <header className={styles.header}>
         <div className={styles['header-content']}>
           <div className={styles.logo}>
@@ -146,23 +191,26 @@ export default function HuongDanNapTienPage() {
           <div className={styles.content}>
             <div className={styles.contentCard}>
               <p className={styles['intro-text']}>
-                Bài viết này sẽ hướng dẫn chi tiết từng bước để bạn thực hiện nạp tiền vào tài khoản TomOi.vn một cách nhanh chóng, an toàn và thuận tiện nhất. Hiện tại, TomOi.vn hỗ trợ hai hình thức nạp tiền chính:
+                Tài liệu này hướng dẫn chi tiết cách nạp tiền vào tài khoản TomOi.vn một cách nhanh chóng, an toàn và thuận tiện nhất. Hiện tại, TomOi.vn hỗ trợ hai phương thức nạp tiền chính để bạn có thể linh hoạt lựa chọn phù hợp với nhu cầu của mình.
               </p>
               
               <div className={styles.methodsContainer}>
-                <div className={styles.method}>
+                <div className={styles.methodCard}>
                   <div className={styles.methodIcon}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#DF2626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
                       <line x1="2" y1="10" x2="22" y2="10"></line>
                     </svg>
                   </div>
-                  <div className={styles.methodName}>Chuyển khoản ngân hàng</div>
-                  <div className={styles.methodDesc}>(Ngân hàng OCB - Ngân hàng Phương Đông)</div>
+                  <div className={styles.methodContent}>
+                    <h3 className={styles.methodTitle}>Chuyển khoản ngân hàng</h3>
+                    <p className={styles.methodDesc}>Nạp tiền nhanh chóng và an toàn qua Ngân hàng OCB - Ngân hàng Phương Đông. Tiền được cộng tự động vào tài khoản trong vòng 1-5 phút.</p>
+                    <a href="#chuyen-khoan-ngan-hang" className={styles.methodLink}>Xem hướng dẫn</a>
+                  </div>
                 </div>
-                <div className={styles.method}>
+                <div className={styles.methodCard}>
                   <div className={styles.methodIcon}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#DF2626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="2" y="4" width="20" height="16" rx="2"></rect>
                       <line x1="6" y1="12" x2="6" y2="12.01"></line>
                       <line x1="10" y1="12" x2="10" y2="12.01"></line>
@@ -174,89 +222,160 @@ export default function HuongDanNapTienPage() {
                       <line x1="18" y1="16" x2="18" y2="16.01"></line>
                     </svg>
                   </div>
-                  <div className={styles.methodName}>Nạp tiền thông qua thẻ cào điện thoại</div>
-                  <div className={styles.methodDesc}>(Thẻ cào Viettel)</div>
+                  <div className={styles.methodContent}>
+                    <h3 className={styles.methodTitle}>Thẻ cào điện thoại</h3>
+                    <p className={styles.methodDesc}>Nạp tiền tiện lợi thông qua thẻ cào Viettel. Phù hợp khi bạn không có tài khoản ngân hàng hoặc cần nạp tiền nhanh.</p>
+                    <a href="#nap-the-cao" className={styles.methodLink}>Xem hướng dẫn</a>
+                  </div>
                 </div>
               </div>
               
+              <div className={styles.infoBox}>
+                <div className={styles.infoIcon}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DF2626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                  </svg>
+                </div>
+                <div className={styles.infoContent}>
+                  <h3>Lưu ý về nạp tiền</h3>
+                  <p>Để đảm bảo quá trình nạp tiền diễn ra suôn sẻ, vui lòng đọc kỹ hướng dẫn trước khi thực hiện. Nếu gặp bất kỳ khó khăn nào, hãy liên hệ ngay với đội ngũ hỗ trợ khách hàng của TomOi.vn qua email <a href="mailto:support@tomoi.vn">support@tomoi.vn</a> hoặc hotline <a href="tel:0987654321">0987.654.321</a>.</p>
+                </div>
+              </div>
+
               <section className={styles.section} id="chuyen-khoan-ngan-hang">
                 <h2>1. Hướng dẫn nạp tiền bằng chuyển khoản ngân hàng</h2>
                 
-                <div className={styles.stepBlock}>
-                  <div className={styles.stepNumber}>1</div>
-                  <div className={styles.stepContent}>
-                    <h4>Truy cập trang nạp tiền</h4>
-                    <ul>
-                      <li>Đăng nhập vào tài khoản của bạn trên TomOi.vn.</li>
-                      <li>Chọn vào mục "Nạp tiền" tại biểu tượng số dư trên thanh menu.</li>
-                    </ul>
-                    <div className={styles.imageContainer}>
-                      <img src="/images/huong-dan/nap-tien-1.png" alt="Bước 1: Truy cập trang nạp tiền" className={styles.guideImage} />
+                <div className={styles.stepContainer}>
+                  <div className={styles.stepCard}>
+                    <div className={styles.stepHeader}>
+                      <div className={styles.stepBadge}>1</div>
+                      <h3 className={styles.stepTitle}>Truy cập trang nạp tiền</h3>
+                    </div>
+                    <div className={styles.stepBody}>
+                      <ul className={styles.stepList}>
+                        <li>Đăng nhập vào tài khoản của bạn trên TomOi.vn</li>
+                        <li>Chọn vào mục <strong>"Nạp tiền"</strong> tại biểu tượng số dư trên thanh menu</li>
+                      </ul>
+                      <div className={styles.imageWrapper}>
+                        <LazyImage 
+                          src="/images/huong-dan/nap-tien-1.png" 
+                          alt="Bước 1: Truy cập trang nạp tiền" 
+                          width={600} 
+                          height={350} 
+                          className={styles.guideImage} 
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.stepCard}>
+                    <div className={styles.stepHeader}>
+                      <div className={styles.stepBadge}>2</div>
+                      <h3 className={styles.stepTitle}>Chọn phương thức chuyển khoản ngân hàng</h3>
+                    </div>
+                    <div className={styles.stepBody}>
+                      <p>Trong các phương thức thanh toán hiển thị, hãy chọn mục <strong>"Chuyển khoản ngân hàng"</strong></p>
+                      <div className={styles.imageWrapper}>
+                        <LazyImage 
+                          src="/images/huong-dan/nap-tien-2.png" 
+                          alt="Bước 2: Chọn phương thức chuyển khoản ngân hàng" 
+                          width={600} 
+                          height={350} 
+                          className={styles.guideImage} 
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.stepCard}>
+                    <div className={styles.stepHeader}>
+                      <div className={styles.stepBadge}>3</div>
+                      <h3 className={styles.stepTitle}>Thực hiện chuyển khoản</h3>
+                    </div>
+                    <div className={styles.stepBody}>
+                      <p>Sử dụng thông tin chuyển khoản dưới đây để thực hiện giao dịch:</p>
+                      
+                      <div className={styles.bankInfoCard}>
+                        <div className={styles.bankHeader}>
+                          <div className={styles.bankLogo}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#DF2626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+                              <line x1="2" y1="10" x2="22" y2="10"></line>
+                            </svg>
+                          </div>
+                          <div className={styles.bankName}>OCB - Ngân hàng Phương Đông</div>
+                        </div>
+                        <div className={styles.bankDetails}>
+                          <div className={styles.bankInfoRow}>
+                            <div className={styles.bankInfoLabel}>Số tài khoản:</div>
+                            <div className={styles.bankInfoValue}>
+                              <span className={styles.copyText}>0562147786</span>
+                              <button className={styles.copyButton} title="Sao chép số tài khoản" onClick={() => copyToClipboard("0562147786", "Số tài khoản")}>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                              </button>
+                              {copySuccess === "Số tài khoản" && (
+                                <span className={styles.copySuccess}>Đã sao chép!</span>
+                              )}
+                            </div>
+                          </div>
+                          <div className={styles.bankInfoRow}>
+                            <div className={styles.bankInfoLabel}>Chủ tài khoản:</div>
+                            <div className={styles.bankInfoValue}>Do Hoang Anh</div>
+                          </div>
+                          <div className={styles.bankInfoRow}>
+                            <div className={styles.bankInfoLabel}>Chi nhánh:</div>
+                            <div className={styles.bankInfoValue}>Hà Nội</div>
+                          </div>
+                          <div className={styles.bankInfoRow}>
+                            <div className={styles.bankInfoLabel}>Nội dung chuyển khoản:</div>
+                            <div className={styles.bankInfoValue}>
+                              <span className={styles.copyText}>CK [Tên đăng nhập của bạn]</span>
+                              <button className={styles.copyButton} title="Sao chép nội dung chuyển khoản" onClick={() => copyToClipboard("CK [Tên đăng nhập của bạn]", "Nội dung chuyển khoản")}>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                              </button>
+                              {copySuccess === "Nội dung chuyển khoản" && (
+                                <span className={styles.copySuccess}>Đã sao chép!</span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className={styles.imageWrapper}>
+                        <LazyImage 
+                          src="/images/huong-dan/nap-tien-3.png" 
+                          alt="Bước 3: Thực hiện chuyển khoản" 
+                          width={600} 
+                          height={350} 
+                          className={styles.guideImage} 
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
                 
-                <div className={styles.stepBlock}>
-                  <div className={styles.stepNumber}>2</div>
-                  <div className={styles.stepContent}>
-                    <h4>Chọn phương thức chuyển khoản ngân hàng</h4>
-                    <ul>
-                      <li>Chọn mục "Chuyển khoản ngân hàng" trong các phương thức thanh toán.</li>
-                    </ul>
-                    <div className={styles.imageContainer}>
-                      <img src="/images/huong-dan/nap-tien-2.png" alt="Bước 2: Chọn phương thức chuyển khoản ngân hàng" className={styles.guideImage} />
-                    </div>
-                  </div>
-                </div>
-                
-                <div className={styles.stepBlock}>
-                  <div className={styles.stepNumber}>3</div>
-                  <div className={styles.stepContent}>
-                    <h4>Thực hiện chuyển khoản</h4>
-                    <p>Sử dụng thông tin chuyển khoản dưới đây để thực hiện giao dịch:</p>
-                    
-                    <div className={styles.bankInfoBox}>
-                      <div className={styles.bankInfoRow}>
-                        <div className={styles.bankInfoLabel}>Ngân hàng:</div>
-                        <div className={styles.bankInfoValue}>OCB - Ngân hàng Phương Đông</div>
-                      </div>
-                      <div className={styles.bankInfoRow}>
-                        <div className={styles.bankInfoLabel}>Số tài khoản:</div>
-                        <div className={styles.bankInfoValue}>0562147786</div>
-                      </div>
-                      <div className={styles.bankInfoRow}>
-                        <div className={styles.bankInfoLabel}>Chủ tài khoản:</div>
-                        <div className={styles.bankInfoValue}>Do Hoang Anh</div>
-                      </div>
-                      <div className={styles.bankInfoRow}>
-                        <div className={styles.bankInfoLabel}>Chi nhánh:</div>
-                        <div className={styles.bankInfoValue}>Hà Nội</div>
-                      </div>
-                      <div className={styles.bankInfoRow}>
-                        <div className={styles.bankInfoLabel}>Nội dung chuyển khoản:</div>
-                        <div className={styles.bankInfoValue}>CK [Tên đăng nhập của bạn]</div>
-                      </div>
-                    </div>
-                    
-                    <div className={styles.imageContainer}>
-                      <img src="/images/huong-dan/nap-tien-3.png" alt="Bước 3: Thực hiện chuyển khoản" className={styles.guideImage} />
-                    </div>
-                  </div>
-                </div>
-                
-                <div className={styles.alertBox}>
-                  <div className={styles.alertIcon}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <div className={styles.alertCard}>
+                  <div className={styles.alertHeader}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DF2626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
                       <line x1="12" y1="9" x2="12" y2="13"></line>
                       <line x1="12" y1="17" x2="12.01" y2="17"></line>
                     </svg>
+                    <h3>Lưu ý quan trọng</h3>
                   </div>
-                  <div className={styles.alertContent}>
-                    <p><strong>Lưu ý quan trọng:</strong></p>
-                    <ul>
+                  <div className={styles.alertBody}>
+                    <ul className={styles.alertList}>
                       <li>Bạn nên chuyển khoản cùng ngân hàng để tiền vào tài khoản nhanh nhất (thường trong vòng 1-5 phút). Nếu chuyển từ ngân hàng khác, hãy sử dụng dịch vụ chuyển tiền nhanh 24/7 để tiền vào tài khoản kịp thời.</li>
-                      <li>Bắt buộc phải ghi chính xác nội dung chuyển khoản (CK [Tên đăng nhập]), nếu sai, hệ thống sẽ không thể tự động cộng tiền vào tài khoản của bạn. Trong trường hợp sai sót này, bạn phải liên hệ hỗ trợ khách hàng để được xử lý thủ công.</li>
+                      <li>Bắt buộc phải ghi <strong>chính xác nội dung chuyển khoản</strong> (CK [Tên đăng nhập]), nếu sai, hệ thống sẽ không thể tự động cộng tiền vào tài khoản của bạn.</li>
+                      <li>Trong trường hợp đã chuyển khoản nhưng sau 30 phút vẫn chưa được cộng tiền, vui lòng liên hệ ngay với bộ phận hỗ trợ khách hàng để được hỗ trợ.</li>
                     </ul>
                   </div>
                 </div>
@@ -265,63 +384,123 @@ export default function HuongDanNapTienPage() {
               <section className={styles.section} id="nap-the-cao">
                 <h2>2. Hướng dẫn nạp tiền bằng thẻ cào Viettel</h2>
                 
-                <div className={styles.stepBlock}>
-                  <div className={styles.stepNumber}>1</div>
-                  <div className={styles.stepContent}>
-                    <h4>Chọn phương thức nạp thẻ cào Viettel</h4>
-                    <ul>
-                      <li>Đăng nhập vào tài khoản TomOi.vn và chọn vào mục "Nạp tiền".</li>
-                      <li>Click vào phương thức "Nạp tiền qua thẻ cào Viettel".</li>
-                    </ul>
-                    <div className={styles.imageContainer}>
-                      <img src="/images/huong-dan/nap-the-cao-1.png" alt="Bước 1: Chọn phương thức nạp thẻ cào Viettel" className={styles.guideImage} />
+                <div className={styles.stepContainer}>
+                  <div className={styles.stepCard}>
+                    <div className={styles.stepHeader}>
+                      <div className={styles.stepBadge}>1</div>
+                      <h3 className={styles.stepTitle}>Chọn phương thức nạp thẻ cào Viettel</h3>
+                    </div>
+                    <div className={styles.stepBody}>
+                      <ul className={styles.stepList}>
+                        <li>Đăng nhập vào tài khoản TomOi.vn và chọn vào mục <strong>"Nạp tiền"</strong></li>
+                        <li>Click vào phương thức <strong>"Nạp tiền qua thẻ cào Viettel"</strong></li>
+                      </ul>
+                      <div className={styles.imageWrapper}>
+                        <LazyImage 
+                          src="/images/huong-dan/nap-the-cao-1.png" 
+                          alt="Bước 1: Chọn phương thức nạp thẻ cào Viettel" 
+                          width={600} 
+                          height={350} 
+                          className={styles.guideImage} 
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.stepCard}>
+                    <div className={styles.stepHeader}>
+                      <div className={styles.stepBadge}>2</div>
+                      <h3 className={styles.stepTitle}>Nhập thông tin thẻ cào</h3>
+                    </div>
+                    <div className={styles.stepBody}>
+                      <p>Điền đầy đủ và chính xác các thông tin sau:</p>
+                      <div className={styles.cardInfoBox}>
+                        <div className={styles.cardInfoItem}>
+                          <div className={styles.cardInfoIcon}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#DF2626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                              <line x1="2" y1="10" x2="22" y2="10"></line>
+                            </svg>
+                          </div>
+                          <div className={styles.cardInfoContent}>
+                            <h4>Mệnh giá thẻ cào</h4>
+                            <p>Chọn đúng mệnh giá của thẻ cào bạn đang có</p>
+                          </div>
+                        </div>
+                        <div className={styles.cardInfoItem}>
+                          <div className={styles.cardInfoIcon}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#DF2626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                          </div>
+                          <div className={styles.cardInfoContent}>
+                            <h4>Số Serial của thẻ</h4>
+                            <p>Dãy số in ở mặt sau của thẻ cào</p>
+                          </div>
+                        </div>
+                        <div className={styles.cardInfoItem}>
+                          <div className={styles.cardInfoIcon}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#DF2626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                              <path d="M7 7h.01M7 12h.01M7 17h.01M12 7h.01M12 12h.01M12 17h.01M17 7h.01M17 12h.01M17 17h.01"></path>
+                            </svg>
+                          </div>
+                          <div className={styles.cardInfoContent}>
+                            <h4>Mã thẻ cào</h4>
+                            <p>Dãy số được phủ lớp bạc cần cào để lấy mã</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className={styles.imageWrapper}>
+                        <LazyImage 
+                          src="/images/huong-dan/nap-the-cao-2.png" 
+                          alt="Bước 2: Nhập thông tin thẻ cào" 
+                          width={600} 
+                          height={350} 
+                          className={styles.guideImage} 
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.stepCard}>
+                    <div className={styles.stepHeader}>
+                      <div className={styles.stepBadge}>3</div>
+                      <h3 className={styles.stepTitle}>Kiểm tra và xác nhận</h3>
+                    </div>
+                    <div className={styles.stepBody}>
+                      <ul className={styles.stepList}>
+                        <li>Kiểm tra kỹ lại thông tin thẻ cào vừa nhập</li>
+                        <li>Bấm <strong>"Nạp tiền"</strong> để hoàn tất quá trình nạp tiền</li>
+                      </ul>
+                      <div className={styles.imageWrapper}>
+                        <LazyImage 
+                          src="/images/huong-dan/nap-the-cao-3.png" 
+                          alt="Bước 3: Kiểm tra và xác nhận" 
+                          width={600} 
+                          height={350} 
+                          className={styles.guideImage} 
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
                 
-                <div className={styles.stepBlock}>
-                  <div className={styles.stepNumber}>2</div>
-                  <div className={styles.stepContent}>
-                    <h4>Nhập thông tin thẻ cào</h4>
-                    <p>Điền đầy đủ và chính xác các thông tin sau:</p>
-                    <ul>
-                      <li>Mệnh giá thẻ cào</li>
-                      <li>Số Serial của thẻ (dãy số phía sau thẻ)</li>
-                      <li>Mã thẻ cào (dãy số được phủ kín)</li>
-                    </ul>
-                    <div className={styles.imageContainer}>
-                      <img src="/images/huong-dan/nap-the-cao-2.png" alt="Bước 2: Nhập thông tin thẻ cào" className={styles.guideImage} />
-                    </div>
-                  </div>
-                </div>
-                
-                <div className={styles.stepBlock}>
-                  <div className={styles.stepNumber}>3</div>
-                  <div className={styles.stepContent}>
-                    <h4>Kiểm tra và xác nhận</h4>
-                    <ul>
-                      <li>Kiểm tra kỹ lại thông tin thẻ cào vừa nhập.</li>
-                      <li>Bấm "Nạp tiền" để hoàn tất quá trình nạp tiền.</li>
-                    </ul>
-                    <div className={styles.imageContainer}>
-                      <img src="/images/huong-dan/nap-the-cao-3.png" alt="Bước 3: Kiểm tra và xác nhận" className={styles.guideImage} />
-                    </div>
-                  </div>
-                </div>
-                
-                <div className={styles.alertBox}>
-                  <div className={styles.alertIcon}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <div className={styles.alertCard}>
+                  <div className={styles.alertHeader}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DF2626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
                       <line x1="12" y1="9" x2="12" y2="13"></line>
                       <line x1="12" y1="17" x2="12.01" y2="17"></line>
                     </svg>
+                    <h3>Lưu ý quan trọng</h3>
                   </div>
-                  <div className={styles.alertContent}>
-                    <p><strong>Lưu ý quan trọng:</strong></p>
-                    <ul>
-                      <li>Nhập chính xác thông tin mệnh giá, số Serial và mã thẻ. Nếu sai sót trong việc nhập các thông tin này, bạn sẽ mất thẻ và TomOi.vn sẽ không chịu trách nhiệm trong trường hợp này.</li>
+                  <div className={styles.alertBody}>
+                    <ul className={styles.alertList}>
+                      <li>Nhập <strong>chính xác</strong> thông tin mệnh giá, số Serial và mã thẻ. Nếu sai sót trong việc nhập các thông tin này, bạn sẽ mất thẻ và TomOi.vn sẽ không chịu trách nhiệm trong trường hợp này.</li>
                       <li>Sau khi gửi thẻ, bạn sẽ nhận được thông báo xác nhận qua email trong vòng 1-3 phút.</li>
+                      <li>Hiện tại, TomOi.vn chỉ hỗ trợ nạp thẻ cào Viettel. Các loại thẻ khác sẽ được cập nhật trong thời gian tới.</li>
                     </ul>
                   </div>
                 </div>
