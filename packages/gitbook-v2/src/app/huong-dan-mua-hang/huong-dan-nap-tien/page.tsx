@@ -18,7 +18,8 @@ const LazyImage = (props: any) => (
   </Suspense>
 );
 
-export const metadata = {
+// Metadata được di chuyển vào trong component để sử dụng với Head
+const pageMetadata = {
   title: 'Hướng dẫn nạp tiền tại TomOi.vn - Chi tiết các phương thức nạp tiền',
   description: 'Hướng dẫn chi tiết cách nạp tiền vào tài khoản TomOi.vn bằng chuyển khoản ngân hàng OCB và thẻ cào Viettel. Thực hiện nhanh chóng, an toàn và dễ dàng.',
   keywords: 'nạp tiền, TomOi.vn, chuyển khoản ngân hàng, thẻ cào Viettel, hướng dẫn nạp tiền, tài khoản TomOi',
@@ -123,13 +124,13 @@ export default function HuongDanNapTienPage() {
   return (
     <div className={styles['docs-container']}>
       <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        <meta name="keywords" content={metadata.keywords} />
-        <meta property="og:title" content={metadata.openGraph.title} />
-        <meta property="og:description" content={metadata.openGraph.description} />
-        <meta property="og:url" content={metadata.openGraph.url} />
-        <meta property="og:type" content={metadata.openGraph.type} />
+        <title>{pageMetadata.title}</title>
+        <meta name="description" content={pageMetadata.description} />
+        <meta name="keywords" content={pageMetadata.keywords} />
+        <meta property="og:title" content={pageMetadata.openGraph.title} />
+        <meta property="og:description" content={pageMetadata.openGraph.description} />
+        <meta property="og:url" content={pageMetadata.openGraph.url} />
+        <meta property="og:type" content={pageMetadata.openGraph.type} />
       </Head>
       <header className={styles.header}>
         <div className={styles['header-content']}>
