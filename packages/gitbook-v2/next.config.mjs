@@ -40,6 +40,9 @@ const nextConfig = {
 
         // Used to detect if the app is running in V2 mode
         GITBOOK_V2: 'true',
+        
+        // Disable middleware for development
+        DISABLE_MIDDLEWARE: 'true',
     },
 
     assetPrefix: process.env.GITBOOK_ASSETS_PREFIX,

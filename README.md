@@ -1,181 +1,89 @@
-<h1 align="center">GitBook</h1>
+<h1 align="center">Tài Liệu Cá Nhân</h1>
 
 <p align="center">
-  <a href="https://gitbook.com/docs/">Docs</a> - <a href="https://github.com/GitbookIO/community">Community</a> - <a href="https://developer.gitbook.com/">Developer Docs</a> - <a href="https://changelog.gitbook.com/">Changelog</a> - <a href="https://github.com/GitbookIO/gitbook/issues/new?assignees=&labels=bug&template=bug_report.md">Bug reports</a> 
+  <a href="#docs">Tài liệu</a> - <a href="#community">Cộng đồng</a> - <a href="#developer">Tài liệu phát triển</a> - <a href="#changelog">Cập nhật</a> - <a href="#bugs">Báo lỗi</a> 
 </p>
 
 <p align="center">
-  <a href="https://gitbook.com"><img src="https://img.shields.io/static/v1?message=Documented%20on%20GitBook&logo=gitbook&logoColor=ffffff&label=%20&labelColor=5c5c5c&color=3F89A1"></a>
   <a href="#"><img src="https://img.shields.io/badge/Open_Source-❤️-FDA599?"/></a>
-  <a href="/LICENSE"><img src="https://img.shields.io/badge/License-GNU_GPLv3-F4E28D"/></a>
-  <a href="/.github/CONTRIBUTING.md"><img src="https://img.shields.io/github/contributors/gitbookIO/gitbook"/></a>
-  <a href="https://github.com/gitbookIO/gitbook/issues"><img src="https://img.shields.io/github/issues/gitbookIO/gitbook"/></a>
+  <a href="#"><img src="https://img.shields.io/badge/License-MIT-F4E28D"/></a>
 </p>
 
-<p align="center">Welcome to GitBook, the platform for managing technical knowledge for teams.</p>
+<p align="center">Chào mừng đến với trang tài liệu cá nhân của tôi.</p>
 
-<p align="center">This repository contains the open source code used to render GitBook's published content.</p>
+<p align="center">Kho lưu trữ này chứa mã nguồn mở được sử dụng để hiển thị nội dung tài liệu cá nhân.</p>
 
 <p align="center">
-  <img alt="GitBook Open Published Site" src="./assets/published-site.png">
+  <img alt="Trang tài liệu cá nhân" src="./assets/published-site.png">
 </p>
 
-## Table of Contents
+## Mục lục
 
--   [Getting Started](#getting-started)
--   [Contributing](#contributing)
-    -   [Types of contributions](#types-of-contributions)
--   [Licensing](#license)
--   [Acknowledgements](#acknowledgements)
--   [Legacy GitBook](#legacy-gitbook-deprecated)
+- [Bắt đầu](#bắt-đầu)
+- [Đóng góp](#đóng-góp)
+- [Giấy phép](#giấy-phép)
+- [Lời cảm ơn](#lời-cảm-ơn)
 
-## Getting Started
+## Bắt đầu
 
-To run a local version of this project, please follow these simple steps.
+Để chạy phiên bản cục bộ của dự án này, vui lòng làm theo các bước đơn giản sau.
 
-### Prerequisites
+### Yêu cầu
 
--   Node.js (Version: >=20.6)
-  - Use nvm for easy Node management
--   Bun (Version: >=1.2.1)
-  - We use a text-based lockfile which isn't supported below 1.2.1
+- Node.js (Phiên bản: >=20.6)
+  - Sử dụng nvm để quản lý Node dễ dàng
+- Bun (Phiên bản: >=1.2.1)
+  - Chúng tôi sử dụng tệp khóa dựa trên văn bản không được hỗ trợ dưới 1.2.1
 
-### Set up
+### Thiết lập
 
-1. Clone the repo into a **public** GitHub repository. If you plan to distribute the code, keep the source code public to comply with GNU GPLv3. To clone in a private repository, acquire a [commercial license](https://www.gitbook.com/pricing).
+1. Clone kho lưu trữ
 
 ```
-git clone https://github.com/gitbookIO/gitbook.git
+git clone https://github.com/username/personal-docs.git
 ```
 
-2. Ensure you are using the project's version of `node`. Running `nvm use` will change your local version to the correct one.
+2. Đảm bảo bạn đang sử dụng phiên bản `node` của dự án. Chạy `nvm use` sẽ thay đổi phiên bản cục bộ của bạn thành phiên bản chính xác.
 
-3. Install the project's dependencies through Bun.
+3. Cài đặt các phụ thuộc của dự án thông qua Bun.
 
 ```
 bun install
 ```
 
-4. Start your local development server.
+4. Khởi động máy chủ phát triển cục bộ của bạn.
 
 ```
 bun dev:v2
 ```
 
-5. Open a published GitBook space in your web browser, prefixing it with `http://localhost:3000/`.
+5. Mở trang tài liệu trong trình duyệt web của bạn, thêm tiền tố `http://localhost:3000/`.
 
-examples:
+ví dụ:
 
--   http://localhost:3000/url/gitbook.com/docs
--   http://localhost:3000/url/open-source.gitbook.io/midjourney
+- http://localhost:3000/url/docs
+- http://localhost:3000/url/tutorials
 
-Any published GitBook site can be accessed through your local development instance, and any updates you make to the codebase will be reflected in your browser.
+Bất kỳ trang tài liệu nào cũng có thể được truy cập thông qua phiên bản phát triển cục bộ của bạn, và bất kỳ cập nhật nào bạn thực hiện đối với cơ sở mã sẽ được phản ánh trong trình duyệt của bạn.
 
-### Other development commands
+### Các lệnh phát triển khác
 
--   `bun format`: format the code
--   `bun lint`: lint the code
+- `bun format`: định dạng mã
+- `bun lint`: kiểm tra mã
 
-### CI and testing
+## Đóng góp
 
-All pull-requests will be tested against both visual and performances testing to prevent regressions.
+Công cụ hiển thị tài liệu được xây dựng trên [Next.js](https://nextjs.org/). Đọc hướng dẫn đóng góp của chúng tôi để tìm hiểu thêm về quy trình thêm Pull Request đầu tiên của bạn.
 
-## Fonts and Icons
+## Giấy phép
 
-GitBook Open uses fontawesome. During development, your local environment will use the free version. However, only the pro version will be accepted by CI. If you see the following error:
+Phân phối theo Giấy phép MIT.
 
-```
-The GitBook icon is missing. It indicates that the dependencies were installed without the correct font-awesome package. These changes have probably been persisted in the Bun lockfile. Read the README for more information.
-```
+## Lời cảm ơn
 
-It means that you've changed the GBO dependencies and bundled in the free version. Only GitBook staff can help with this - if you're not on the GitBook team, please ping us in the PR and we'll help get things moving.
+Dự án này không thể thực hiện được nếu không có các dự án sau:
 
-If you are GitBook staff, you'll need our NPM token in your local environment.
-
-```
-.env.local
-
-NPM_TOKEN_READONLY=xxx
-```
-
-and then reinstall dependencies.
-
-## Contributing
-
-GitBook's rendering engine is fully open source and built on top of [Next.js](https://nextjs.org/). Head to our [contributing guide](https://github.com/GitbookIO/gitbook/blob/main/.github/CONTRIBUTING.md) to learn more about the workflow on adding your first Pull Request.
-
-### Types of contributions
-
-We encourage you to contribute to GitBook to help us build the best tool for documenting technical knowledge. If you're looking for some quick ways to contribute, continue reading to learn more about popular contributions.
-
-#### Translations
-
-The GitBook UI is rendered using a set of translation files found in [`packages/gitbook/src/intl/translations`](/packages/gitbook/src/intl/translations/). We welcome all additional translations for the UI.
-
-#### Bugs
-
-Encounter a bug or find an issue you'd like to fix? Helping us fix issues related to GitBook greatly improves the experience for everyone. Head to the issues section of this repository to learn more about the types of bugs you can already help out with.
-
-## Deployment
-
-> [!WARNING]  
-> While it is possible to self-host this project, we do not recommend this unless you are certain this option fits your need.
->
-> _Looking to add a specific feature in GitBook? Head to our [contributing guide](https://github.com/GitbookIO/gitbook/blob/main/.github/CONTRIBUTING.md) to get started._
->
-> Self-hosting this project puts the responsibility of maintaining and merging future updates on **you**. We cannot guarantee support, maintenance, or updates to forked and self-hosted instances of this project.
->
-> We want to make it as easy as possible for our community to collaborate and push the future of GitBook, which is why we encourage you to contribute to our product directly instead of creating your own version.
-
-This project allows you to self-host the rendering portion of your GitBook published content. Self-hosting has pros and cons.
-
-On the pro side, you can customize the look and feel of your content, and better embed your documentation in your application.
-
-On the con side, you become responsible for the reliability of your published site, and keeping the renderer up-to-date with the changes made to the GitBook platform.
-
-## License
-
-Distributed under the [GNU GPLv3 License](https://github.com/GitBookIO/gitbook/blob/main/LICENSE).
-
-If you plan to distribute the code, you must make the source code public to comply with the GNU GPLv3. To clone in a private repository, acquire a [commercial license](https://www.gitbook.com/pricing).
-
-See `LICENSE` for more information.
-
-## Badges
-
-<p align="left">
-  <a href="https://gitbook.com"><img src="https://img.shields.io/static/v1?message=Documented%20on%20GitBook&logo=gitbook&logoColor=ffffff&label=%20&labelColor=5c5c5c&color=3F89A1"></a>
-  <a href="https://gitbook.com"><img src="https://img.shields.io/static/v1?message=Documented%20on%20GitBook&logo=gitbook&logoColor=ffffff&label=%20&labelColor=5c5c5c&color=F4E28D"></a>
-  <a href="https://gitbook.com"><img src="https://img.shields.io/static/v1?message=Documented%20on%20GitBook&logo=gitbook&logoColor=ffffff&label=%20&labelColor=5c5c5c&color=FDA599"></a>
-</p>
-
-```md
-[![GitBook](https://img.shields.io/static/v1?message=Documented%20on%20GitBook&logo=gitbook&logoColor=ffffff&label=%20&labelColor=5c5c5c&color=3F89A1)](https://www.gitbook.com/preview?utm_source=gitbook_readme_badge&utm_medium=organic&utm_campaign=preview_documentation&utm_content=link)
-```
-
-```html
-<a href="https://www.gitbook.com/preview?utm_source=gitbook_readme_badge&utm_medium=organic&utm_campaign=preview_documentation&utm_content=link">
-    <img
-        src="https://img.shields.io/static/v1?message=Documented%20on%20GitBook&logo=gitbook&logoColor=ffffff&label=%20&labelColor=5c5c5c&color=3F89A1"
-    />
-</a>
-```
-
-## Acknowledgements
-
-GitBook wouldn't be possible without these projects:
-
--   [Next.js](https://nextjs.org/)
--   [Bun](https://bun.sh/)
--   [Tailwind CSS](https://tailwindcss.com/)
--   [Framer Motion](https://www.npmjs.com/package/framer-motion)
-
-## Contributors
-
-<a href="https://github.com/gitbookIO/gitbook/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=gitbookIO/gitbook" />
-</a>
-
-## Legacy GitBook (Deprecated)
-
-Our previous version of GitBook and it's CLI tool are now deprecated. You can still view the old repository and it's commits on this [branch](https://github.com/GitbookIO/gitbook/tree/legacy).
+- [Next.js](https://nextjs.org/)
+- [Bun](https://bun.sh/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Framer Motion](https://www.npmjs.com/package/framer-motion)

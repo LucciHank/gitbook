@@ -46,6 +46,11 @@ const ADAPTIVE_CONTENT_HOSTS = [
 ];
 
 export async function middleware(request: NextRequest) {
+    // Skip middleware if DISABLE_MIDDLEWARE is set to true
+    if (process.env.DISABLE_MIDDLEWARE === 'true') {
+        return NextResponse.next();
+    }
+    
     try {
         const requestURL = new URL(request.url);
 
