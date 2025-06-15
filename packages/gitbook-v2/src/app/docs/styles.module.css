@@ -1132,406 +1132,147 @@
   width: 100%;
 }
 
-/* Styles for step cards */
-.stepContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  margin-bottom: 2rem;
-}
-
-.stepCard {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.stepCard:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-}
-
-.stepHeader {
-  display: flex;
-  align-items: center;
-  padding: 1rem 1.5rem;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #e9ecef;
-}
-
-.stepBadge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  background-color: #DF2626;
-  color: white;
-  border-radius: 50%;
-  font-weight: 600;
-  margin-right: 1rem;
-  flex-shrink: 0;
-}
-
-.stepTitle {
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #333;
-}
-
-.stepBody {
-  padding: 1.5rem;
-}
-
-.stepList {
-  padding-left: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.stepList li {
-  margin-bottom: 0.5rem;
-  line-height: 1.5;
-}
-
-.imageWrapper {
-  margin-top: 1.5rem;
-  border-radius: 6px;
-  overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.guideImage {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.imagePlaceholder {
-  width: 100%;
-  height: 350px;
-  background-color: #f1f1f1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Bank info card styles */
-.bankInfoCard {
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  border: 1px solid #e9ecef;
-  margin: 1.5rem 0;
-  overflow: hidden;
-}
-
-.bankHeader {
-  display: flex;
-  align-items: center;
-  padding: 1rem;
-  background-color: #DF2626;
-  color: white;
-}
-
-.bankLogo {
-  margin-right: 1rem;
-  display: flex;
-  align-items: center;
-}
-
-.bankName {
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-.bankDetails {
-  padding: 1rem;
-}
-
-.bankInfoRow {
-  display: flex;
-  margin-bottom: 0.75rem;
-  align-items: center;
-}
-
-.bankInfoRow:last-child {
-  margin-bottom: 0;
-}
-
-.bankInfoLabel {
-  width: 40%;
-  font-weight: 500;
-  color: #495057;
-}
-
-.bankInfoValue {
-  width: 60%;
-  display: flex;
-  align-items: center;
-}
-
-.copyText {
-  margin-right: 0.5rem;
-  font-family: monospace;
-  font-size: 0.95rem;
-}
-
-.copyButton {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #6c757d;
-  padding: 0.25rem;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s ease;
-}
-
-.copyButton:hover {
-  background-color: #e9ecef;
-  color: #DF2626;
-}
-
-/* Alert card styles */
-.alertCard {
-  background-color: #fff8f8;
-  border-left: 4px solid #DF2626;
-  border-radius: 6px;
-  margin: 2rem 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.alertHeader {
-  display: flex;
-  align-items: center;
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid #ffe6e6;
-}
-
-.alertHeader svg {
-  margin-right: 0.75rem;
-  color: #DF2626;
-}
-
-.alertHeader h3 {
-  margin: 0;
-  font-size: 1.1rem;
-  color: #DF2626;
-}
-
-.alertBody {
-  padding: 1rem 1.5rem;
-}
-
-.alertList {
-  margin: 0;
-  padding-left: 1.5rem;
-}
-
-.alertList li {
-  margin-bottom: 0.75rem;
-  line-height: 1.5;
-}
-
-.alertList li:last-child {
-  margin-bottom: 0;
-}
-
-/* Card info box styles */
-.cardInfoBox {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin: 1.5rem 0;
-}
-
-.cardInfoItem {
-  display: flex;
-  background-color: #f8f9fa;
-  padding: 1rem;
-  border-radius: 8px;
-  border: 1px solid #e9ecef;
-}
-
-.cardInfoIcon {
-  margin-right: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.cardInfoContent h4 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1rem;
-  color: #333;
-}
-
-.cardInfoContent p {
-  margin: 0;
-  color: #6c757d;
-  font-size: 0.9rem;
-}
-
-/* Method cards styles */
 .methodsContainer {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  display: flex;
   gap: 1.5rem;
   margin: 2rem 0;
+  flex-wrap: wrap;
 }
 
-.methodCard {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+.method {
+  flex: 1;
+  min-width: 280px;
+  background-color: #f9f9f9;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
   padding: 1.5rem;
-  display: flex;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.methodCard:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+.method:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  border-color: #ddd;
 }
 
 .methodIcon {
-  margin-right: 1rem;
+  background-color: rgba(223, 38, 38, 0.1);
+  color: #DF2626;
+  width: 50px;
+  height: 50px;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  margin-bottom: 1rem;
 }
 
-.methodContent {
-  flex: 1;
-}
-
-.methodTitle {
-  margin: 0 0 0.75rem 0;
-  font-size: 1.2rem;
+.methodName {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
   color: #333;
 }
 
 .methodDesc {
-  margin: 0 0 1rem 0;
-  color: #6c757d;
-  line-height: 1.5;
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1rem;
 }
 
-.methodLink {
-  display: inline-block;
-  padding: 0.5rem 1rem;
+.methodBadge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
   background-color: #DF2626;
   color: white;
-  border-radius: 4px;
-  text-decoration: none;
+  font-size: 0.75rem;
   font-weight: 500;
-  transition: background-color 0.2s ease;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px rgba(223, 38, 38, 0.3);
 }
 
-.methodLink:hover {
-  background-color: #c41e1e;
-}
-
-/* Info box styles */
-.infoBox {
-  background-color: #f0f7ff;
-  border-radius: 8px;
+.bankInfoBox {
+  background-color: #f9f9f9;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
   padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.bankInfoHeader {
   display: flex;
-  margin: 2rem 0;
-  border-left: 4px solid #0066cc;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eaeaea;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
 }
 
-.infoIcon {
-  margin-right: 1rem;
+.bankInfoRow {
   display: flex;
-  align-items: flex-start;
+  margin-bottom: 1rem;
+  align-items: center;
 }
 
-.infoIcon svg {
-  color: #0066cc;
-}
-
-.infoContent h3 {
-  margin: 0 0 0.75rem 0;
-  color: #0066cc;
-}
-
-.infoContent p {
-  margin: 0;
-  line-height: 1.5;
-}
-
-.infoContent a {
-  color: #0066cc;
-  text-decoration: none;
+.bankInfoLabel {
+  width: 180px;
   font-weight: 500;
+  color: #555;
 }
 
-.infoContent a:hover {
-  text-decoration: underline;
+.bankInfoValue {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .methodsContainer {
-    grid-template-columns: 1fr;
-  }
-  
-  .bankInfoRow {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .bankInfoLabel,
-  .bankInfoValue {
-    width: 100%;
-  }
-  
-  .bankInfoLabel {
-    margin-bottom: 0.25rem;
-  }
-  
-  .cardInfoItem {
-    flex-direction: column;
-  }
-  
-  .cardInfoIcon {
-    margin-right: 0;
-    margin-bottom: 0.75rem;
-  }
-  
-  .infoBox {
-    flex-direction: column;
-  }
-  
-  .infoIcon {
-    margin-right: 0;
-    margin-bottom: 1rem;
-  }
-}
-
-.copySuccess {
-  background-color: #28a745;
-  color: white;
-  font-size: 0.8rem;
+.accountNumber {
+  font-family: monospace;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  background-color: #f0f0f0;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
-  margin-left: 0.5rem;
-  animation: fadeIn 0.3s ease;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.copyButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  color: #666;
+  transition: all 0.2s ease;
+}
+
+.copyButton:hover {
+  background-color: #eaeaea;
+  color: #DF2626;
+}
+
+.transferContent {
+  font-weight: 500;
+}
+
+.importantNote {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: #DF2626;
+  font-style: italic;
+}
+
+.alertTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #DF2626;
 }
  

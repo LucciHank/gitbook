@@ -10,14 +10,6 @@ const nextConfig = {
   compress: true,
   experimental: {
     useCache: true
-  },
-  webpack: (config, { isServer }) => {
-    // Ignore missing modules from gitbook package
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
-      '@gitbook/icons': false
-    };
-    return config;
   }
 };
 
